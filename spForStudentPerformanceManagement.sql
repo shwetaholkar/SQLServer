@@ -170,10 +170,12 @@
 --execute displayCourseWiseHighestMarks
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
---DisplayCourseWiseTopper --create procedure DisplayCourseWiseTopper 
+--DisplayCourseWiseTopper 
+
+--alter procedure DisplayCourseWiseTopper 
 --as
 --begin
---select
+--select top 3
 --	c.[courseTitle],max(m.[marks]) as CourseWiseTopper
 --from
 --	[course].[Course] c
@@ -187,9 +189,12 @@
 --	m.[studentID]=s.[studentID]
 --group by 
 --	c.[courseTitle]
+--order by 
+--	c.[courseTitle] desc
 --end
 
---exec DisplayCourseWiseTopper 
+--exec DisplayCourseWiseTopper 
+
 
 ----------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------
@@ -277,4 +282,124 @@
 
 ------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
+
+--insert total marks
+
+--alter procedure insertMarks
+--(
+--@rollNo int,@subjectCode int,@marks int
+--)
+--as 
+--begin
+
+--declare @studentId int;
+--set @studentId=( select [studentID]  from [student].[Student] where [studentRollno]=@rollNo)
+
+--declare @subjectId int;
+--set @subjectId=( select [subjectID]  from [course].[Subjects] where [subjectCode]=@subjectCode)
+
+--insert into [marks].[Marks]
+--	([studentID],[subjectID],[marks]) 
+--values
+--	(@studentId,@subjectId,@marks)
+--end
+
+--execute insertMarks 101,1334,42
+--select * from [marks].[Marks]
+--select * from [course].[Subjects]
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+--Delete Marks
+
+--create procedure deleteMarks
+--(
+--	@marksId int
+--)
+--as 
+--begin
+--delete 
+--from 
+--	[marks].[Marks]
+--where 
+--	[marksID]=@marksId
+--end
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--Ask roll number to display subject wise marks for a student
+--public void DisplayMarksByRollNo (string rollNumbe)
+
+--alter procedure DisplayMarksByRollNo
+--as
+--begin
+--select 
+--	sub.[subjectTitle],mark.[marks]
+--	from 
+--		[student].[Student] stud
+--	inner join
+--		[marks].[Marks] mark
+--	on
+--		stud.[studentID]=mark.[studentID]
+--	inner join
+--		[course].[Subjects] sub
+--	on 
+--		sub.[subjectID]=mark.[subjectID]
+--	group by
+--		sub.[subjectTitle],mark.[marks]
+--end
+
+--execute DisplayMarksByRollNo
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+--12 List all students with details of course, subject, and total mark
+--public void DisplayStudentReport()
+
+--create procedure DisplayStudentReport
+--as
+--begin
+--select 
+--	stud.studentName,c.courseTitle,mark.marks
+--	from 
+--		[student].[Student] stud
+--	inner join
+--		[course].[Course] c
+--	on
+--		stud.[courseID]=c.[courseID]
+--	inner join
+--		[marks].[Marks] mark
+--	on 
+--		stud.[studentID]=mark.[studentID]
+--	group by
+--		stud.studentName,c.courseTitle,mark.marks
+--end
+
+--execute DisplayStudentReport
+-----------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+--delete course 
+
+--delete from marks.Marks
+--where Subject_ID in(select Subject_ID from course.Subject
+--where Course_Id = @Course_id)
+
+--delete from student.Student
+--where Course_ID = @Course_id
+
+--delete from course.Subject
+--where Course_Id = @Course_id
+
+--delete from course.Course
+--where Course_ID = @Course_id
+
+
+--select * from [course].[Course]
+--select * from [course].[Subjects]
+
+--execute DisplayCourseWiseTopper
+--=======================================================================================================================================
+
+select * from [course].[Course]
+select * from [marks].[Marks]
+select * from [course].[Subjects]
+select * from [student].[Student]
 
