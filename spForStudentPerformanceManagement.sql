@@ -403,3 +403,7 @@ select * from [marks].[Marks]
 select * from [course].[Subjects]
 select * from [student].[Student]
 
+
+
+
+   		                   

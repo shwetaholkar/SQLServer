@@ -23,7 +23,7 @@ select first_name,last_name,salary,15*salary/100 as PF from employees ;
 /*5. Write a query to get the employee ID, names (first_name, last_name), 
 salary in ascending order of salary. */
 
-select * from employees order by employee_id,first_name,last_name,salary asc ;
+select employee_id,first_name,last_name,salary from employees order by salary asc ;
 
 /* 6. Write a query to get the total salaries payable to employees*/
 
@@ -32,21 +32,21 @@ select sum(salary) from employees;
 /* 7. Write a query to get the maximum and minimum salary from 
 employees table.*/
 
-select max(salary),min(salary) from employees;
+select max(salary) as MaxSalary ,min(salary) as MinSalary from employees;
 
 /* 8. Write a query to get the average salary and number of employees in 
 the employees table.*/
 
-select avg(salary), count(*) from employees;
+select avg(salary) as AverageSalary, count(*) from employees;
 
 /* 9. Write a query to get the number of employees working with the 
 company.*/
 
-select count(*) from employees;
+select count(*) as NumberOfEmp from employees;
 
 /*10. Write a query to get the number of jobs available in the employees 
 table */
-select count(distinct job_id) from employees;
+select count(distinct job_id) as NumberOfJobs from employees;
 
 /*11. Write a query get all first name from employees table in upper case. */
 
@@ -90,7 +90,6 @@ and every employee*/
 select first_name, last_name, round(salary/12,2) as 'Monthly Salary' from employees;
 
 
-
 --Restricting and Sorting data
 --1. Write a query to display the name (first_name, last_name) and salary
 --for all employees whose salary is not in the range $10,000 through
@@ -110,6 +109,7 @@ where department_id=30
 OR department_id= 100
 order by department_id asc;
 
+select * from employees
 
 --3. Write a query to display the name (first_name, last_name) and salary
 --for all employees whose salary is not in the range $10,000 through
@@ -139,7 +139,8 @@ and first_name like '%c%';
 --employees whose job is that of a Programmer or a Shipping Clerk, and
 --whose salary is not equal to $4,500, $10,000, or $15,000. 
  
- select employees.last_name,jobs.job_title,salary from employees 
+ select employees.last_name,jobs.job_title,salary 
+ from employees 
  INNER JOIN	 jobs
  ON employees.job_id=jobs.job_id
  where job_title='Programmer'
@@ -149,24 +150,25 @@ and first_name like '%c%';
  or salary !=15000;
 
 
-
 --7. Write a query to display the last name of employees whose names
 --have exactly 6 characters. 
 
 select last_name from employees
 where
-len(first_name)=6;
+len(last_name)=6;
 
 --8. Write a query to display the last name of employees having 'e' as the
 --third character. 
 
-select last_name,first_name from employees 
-where SUBSTRING(first_name,1,3) like'%e%';
+select last_name from employees 
+where SUBSTRING(last_name,1,3) like'%%e';
 
 --9. Write a query to display the jobs/designations available in the
 --employees table. 
 
-select job_id from employees;
+select job_title from jobs j
+inner join employees e
+on j.job_id=e.job_id;
 
 --10. Write a query to display the name (first_name, last_name), salary and
 --PF (15% of salary) of all employees. 

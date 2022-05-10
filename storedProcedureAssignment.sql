@@ -30,6 +30,7 @@ salary of employees department wise (TestDB) */
 --group by
 --	dept.department_name
 --end;
+--=============================================================================================================
 
 /* 2. CREAT a stored procedure with parameters 
 a. Pass brand name 
@@ -78,11 +79,12 @@ c. Update the list_price of all products belong to the above brandid to increase
 --execute brandProduct 'Surly'
 
 --select * from [production].[brands]
-
+--===============================================================================================================================
 /*3. Create a log table for customers. Apart from all the fields of customer it should also have 
 datetime of the operation performed 
 a. Write trigger to log the delete of customer 
-b. Write trigger to log the insert of customers */
+b. Write trigger to log the insert of customers 
+*/
 
 --CREATE TABLE sales.customer_logs(
 
@@ -143,7 +145,7 @@ b. Write trigger to log the insert of customers */
 --select * from [sales].[customers]
 --select * from sales.customer_logs
 --delete from [sales].[customers] where customer_id=1449
-
+--=============================================================================================================
 /*4. Create a view to list the product with category details 
 a. Order by category name 
 b. Create a view to show the average list_price of all categories */
@@ -178,6 +180,7 @@ b. Create a view to show the average list_price of all categories */
 --	category_name
 
 --select * from production.product_view
+--==============================================================================================================================
 
 /*5. Create a view to list the orders with the count of order items for each order */
 
@@ -196,7 +199,7 @@ b. Create a view to show the average list_price of all categories */
 
 --select * from sales.orderview
 
-
+--==========================================================================================================
 /*6. Create a stored procedure that will take two parameter 
 a. Brand name to be deleted 
 b. New brand name (make sure the name is not already present in brand table using 
